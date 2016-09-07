@@ -9,6 +9,9 @@
  *
  * ========================================
 */
+static uint8   humidity=0;
+static uint8   temperature=0;
+
 int DHTread();
 
 
