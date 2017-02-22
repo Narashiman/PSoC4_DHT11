@@ -1,0 +1,1531 @@
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.DHTread,"ax",%progbits
+  18              		.align	2
+  19              		.global	DHTread
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	DHTread, %function
+  23              	DHTread:
+  24              	.LFB34:
+  25              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** #include "stdio.h"
+  14:main.c        **** 
+  15:main.c        **** static int temperature=99;
+  16:main.c        **** static int humidity=99;
+  17:main.c        **** static uint8 IState,i;
+  18:main.c        **** 
+  19:main.c        **** int DHTread() 
+  20:main.c        **** {     
+  26              		.loc 1 20 0
+  27              		.cfi_startproc
+  28 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  29              		.cfi_def_cfa_offset 20
+  30              		.cfi_offset 4, -20
+  31              		.cfi_offset 5, -16
+  32              		.cfi_offset 6, -12
+  33              		.cfi_offset 7, -8
+  34              		.cfi_offset 14, -4
+  35 0002 83B0     		sub	sp, sp, #12
+  36              		.cfi_def_cfa_offset 32
+  21:main.c        ****    IState=CyEnterCriticalSection();  
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 2
+
+
+  37              		.loc 1 21 0
+  38 0004 FFF7FEFF 		bl	CyEnterCriticalSection
+  39              	.LVL0:
+  40 0008 3C4B     		ldr	r3, .L19
+  41 000a 1870     		strb	r0, [r3]
+  42              	.LVL1:
+  22:main.c        ****    uint8 bits[5]; 
+  23:main.c        **** 	uint8 cnt = 7; 
+  24:main.c        **** 	uint8 idx = 0; 
+  25:main.c        ****    int   calc=0; 
+  26:main.c        ****    int   timeout=0; 
+  27:main.c        ****    for (i=0; i< 5; i++)  
+  43              		.loc 1 27 0
+  44 000c 0022     		mov	r2, #0
+  45 000e 5A70     		strb	r2, [r3, #1]
+  46 0010 05E0     		b	.L2
+  47              	.L3:
+  28:main.c        ****        bits[i] = 0; 
+  48              		.loc 1 28 0 discriminator 3
+  49 0012 0022     		mov	r2, #0
+  50 0014 6946     		mov	r1, sp
+  51 0016 CA54     		strb	r2, [r1, r3]
+  27:main.c        ****        bits[i] = 0; 
+  52              		.loc 1 27 0 discriminator 3
+  53 0018 0133     		add	r3, r3, #1
+  54 001a 384A     		ldr	r2, .L19
+  55 001c 5370     		strb	r3, [r2, #1]
+  56              	.L2:
+  27:main.c        ****        bits[i] = 0; 
+  57              		.loc 1 27 0 is_stmt 0 discriminator 1
+  58 001e 374B     		ldr	r3, .L19
+  59 0020 5B78     		ldrb	r3, [r3, #1]
+  60 0022 042B     		cmp	r3, #4
+  61 0024 F5D9     		bls	.L3
+  29:main.c        ****    DHT_Write(0u); 
+  62              		.loc 1 29 0 is_stmt 1
+  63 0026 0020     		mov	r0, #0
+  64 0028 FFF7FEFF 		bl	DHT_Write
+  65              	.LVL2:
+  30:main.c        ****    CyDelay(19); 
+  66              		.loc 1 30 0
+  67 002c 1320     		mov	r0, #19
+  68 002e FFF7FEFF 		bl	CyDelay
+  69              	.LVL3:
+  31:main.c        ****    DHT_Write(1u); 
+  70              		.loc 1 31 0
+  71 0032 0120     		mov	r0, #1
+  72 0034 FFF7FEFF 		bl	DHT_Write
+  73              	.LVL4:
+  26:main.c        ****    for (i=0; i< 5; i++)  
+  74              		.loc 1 26 0
+  75 0038 0025     		mov	r5, #0
+  32:main.c        ****    while(DHT_Read()==1) 
+  76              		.loc 1 32 0
+  77 003a 04E0     		b	.L4
+  78              	.LVL5:
+  79              	.L6:
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 3
+
+
+  33:main.c        ****    { 
+  34:main.c        ****        timeout++; 
+  80              		.loc 1 34 0
+  81 003c 0135     		add	r5, r5, #1
+  82              	.LVL6:
+  35:main.c        ****        if(timeout>500) 
+  83              		.loc 1 35 0
+  84 003e FA23     		mov	r3, #250
+  85 0040 5B00     		lsl	r3, r3, #1
+  86 0042 9D42     		cmp	r5, r3
+  87 0044 4EDC     		bgt	.L5
+  88              	.LVL7:
+  89              	.L4:
+  32:main.c        ****    while(DHT_Read()==1) 
+  90              		.loc 1 32 0
+  91 0046 FFF7FEFF 		bl	DHT_Read
+  92              	.LVL8:
+  93 004a 0128     		cmp	r0, #1
+  94 004c F6D0     		beq	.L6
+  95 004e 04E0     		b	.L8
+  96              	.L9:
+  36:main.c        ****            goto r99;  //DHT error function 
+  37:main.c        ****    } 
+  38:main.c        ****    while(DHT_Read()==0) 
+  39:main.c        ****    {         
+  40:main.c        ****        timeout++; 
+  97              		.loc 1 40 0
+  98 0050 0135     		add	r5, r5, #1
+  99              	.LVL9:
+  41:main.c        ****        if(timeout>500) 
+ 100              		.loc 1 41 0
+ 101 0052 FA23     		mov	r3, #250
+ 102 0054 5B00     		lsl	r3, r3, #1
+ 103 0056 9D42     		cmp	r5, r3
+ 104 0058 44DC     		bgt	.L5
+ 105              	.L8:
+  38:main.c        ****    {         
+ 106              		.loc 1 38 0
+ 107 005a FFF7FEFF 		bl	DHT_Read
+ 108              	.LVL10:
+ 109 005e 0028     		cmp	r0, #0
+ 110 0060 F6D0     		beq	.L9
+ 111              	.L10:
+  42:main.c        ****            goto r99; //DHT error function 
+  43:main.c        ****    } 
+  44:main.c        ****    calc=timeout; 
+  45:main.c        ****    timeout=0; 
+  46:main.c        ****    while(DHT_Read()==1); 
+ 112              		.loc 1 46 0 discriminator 1
+ 113 0062 FFF7FEFF 		bl	DHT_Read
+ 114              	.LVL11:
+ 115 0066 0128     		cmp	r0, #1
+ 116 0068 FBD0     		beq	.L10
+  47:main.c        ****    for (i=0; i<40; i++) 
+ 117              		.loc 1 47 0
+ 118 006a 0022     		mov	r2, #0
+ 119 006c 234B     		ldr	r3, .L19
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 4
+
+
+ 120 006e 5A70     		strb	r2, [r3, #1]
+  24:main.c        ****    int   calc=0; 
+ 121              		.loc 1 24 0
+ 122 0070 0027     		mov	r7, #0
+  23:main.c        **** 	uint8 idx = 0; 
+ 123              		.loc 1 23 0
+ 124 0072 0726     		mov	r6, #7
+ 125              		.loc 1 47 0
+ 126 0074 22E0     		b	.L11
+ 127              	.LVL12:
+ 128              	.L12:
+  48:main.c        **** 	{ 
+  49:main.c        ****        timeout=0; 
+  50:main.c        ****        while(DHT_Read()==0); 
+ 129              		.loc 1 50 0 discriminator 1
+ 130 0076 FFF7FEFF 		bl	DHT_Read
+ 131              	.LVL13:
+ 132 007a 0028     		cmp	r0, #0
+ 133 007c FBD0     		beq	.L12
+ 134 007e 0024     		mov	r4, #0
+ 135 0080 00E0     		b	.L13
+ 136              	.LVL14:
+ 137              	.L14:
+  51:main.c        ****        while(DHT_Read()==1) 
+  52:main.c        ****            timeout++; 
+ 138              		.loc 1 52 0
+ 139 0082 0134     		add	r4, r4, #1
+ 140              	.LVL15:
+ 141              	.L13:
+  51:main.c        ****        while(DHT_Read()==1) 
+ 142              		.loc 1 51 0
+ 143 0084 FFF7FEFF 		bl	DHT_Read
+ 144              	.LVL16:
+ 145 0088 0128     		cmp	r0, #1
+ 146 008a FAD0     		beq	.L14
+  53:main.c        ****        //Data acquiring point 
+  54:main.c        ****        if ((timeout) > (calc/2)) 
+ 147              		.loc 1 54 0
+ 148 008c EB0F     		lsr	r3, r5, #31
+ 149 008e 5B19     		add	r3, r3, r5
+ 150 0090 5B10     		asr	r3, r3, #1
+ 151 0092 A342     		cmp	r3, r4
+ 152 0094 06DA     		bge	.L15
+  55:main.c        ****            bits[idx] |= (1 << cnt); 
+ 153              		.loc 1 55 0
+ 154 0096 0123     		mov	r3, #1
+ 155 0098 B340     		lsl	r3, r3, r6
+ 156 009a 6A46     		mov	r2, sp
+ 157 009c D25D     		ldrb	r2, [r2, r7]
+ 158 009e 1343     		orr	r3, r2
+ 159 00a0 6A46     		mov	r2, sp
+ 160 00a2 D355     		strb	r3, [r2, r7]
+ 161              	.L15:
+  56:main.c        ****        if (cnt == 0)   // next byte? 
+ 162              		.loc 1 56 0
+ 163 00a4 002E     		cmp	r6, #0
+ 164 00a6 03D1     		bne	.L16
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 5
+
+
+ 165              	.LVL17:
+  57:main.c        ****    	{ 
+  58:main.c        ****    		cnt = 7;    // restart at MSB 
+  59:main.c        ****    		idx++;      // next byte! 
+ 166              		.loc 1 59 0
+ 167 00a8 0137     		add	r7, r7, #1
+ 168              	.LVL18:
+ 169 00aa FFB2     		uxtb	r7, r7
+ 170              	.LVL19:
+  58:main.c        ****    		idx++;      // next byte! 
+ 171              		.loc 1 58 0
+ 172 00ac 0736     		add	r6, r6, #7
+ 173 00ae 01E0     		b	.L17
+ 174              	.LVL20:
+ 175              	.L16:
+  60:main.c        ****    	} 
+  61:main.c        ****    	else cnt--; 
+ 176              		.loc 1 61 0
+ 177 00b0 013E     		sub	r6, r6, #1
+ 178              	.LVL21:
+ 179 00b2 F6B2     		uxtb	r6, r6
+ 180              	.LVL22:
+ 181              	.L17:
+  47:main.c        **** 	{ 
+ 182              		.loc 1 47 0 discriminator 2
+ 183 00b4 114A     		ldr	r2, .L19
+ 184 00b6 5378     		ldrb	r3, [r2, #1]
+ 185 00b8 0133     		add	r3, r3, #1
+ 186 00ba 5370     		strb	r3, [r2, #1]
+ 187              	.LVL23:
+ 188              	.L11:
+  47:main.c        **** 	{ 
+ 189              		.loc 1 47 0 is_stmt 0 discriminator 1
+ 190 00bc 0F4B     		ldr	r3, .L19
+ 191 00be 5B78     		ldrb	r3, [r3, #1]
+ 192 00c0 272B     		cmp	r3, #39
+ 193 00c2 D8D9     		bls	.L12
+  62:main.c        ****    } 
+  63:main.c        ****    humidity    = bits[0];  
+ 194              		.loc 1 63 0 is_stmt 1
+ 195 00c4 6B46     		mov	r3, sp
+ 196 00c6 1A78     		ldrb	r2, [r3]
+ 197 00c8 0D4B     		ldr	r3, .L19+4
+ 198 00ca 1A60     		str	r2, [r3]
+  64:main.c        ****    temperature = bits[2];  
+ 199              		.loc 1 64 0
+ 200 00cc 6A46     		mov	r2, sp
+ 201 00ce 9278     		ldrb	r2, [r2, #2]
+ 202 00d0 5A60     		str	r2, [r3, #4]
+  65:main.c        ****    CyExitCriticalSection(IState); 
+ 203              		.loc 1 65 0
+ 204 00d2 0A4B     		ldr	r3, .L19
+ 205 00d4 1878     		ldrb	r0, [r3]
+ 206 00d6 FFF7FEFF 		bl	CyExitCriticalSection
+ 207              	.LVL24:
+  66:main.c        ****    CyDelay(1); 
+ 208              		.loc 1 66 0
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 6
+
+
+ 209 00da 0120     		mov	r0, #1
+ 210 00dc FFF7FEFF 		bl	CyDelay
+ 211              	.LVL25:
+  67:main.c        ****    return 0; 
+ 212              		.loc 1 67 0
+ 213 00e0 0020     		mov	r0, #0
+ 214 00e2 08E0     		b	.L18
+ 215              	.LVL26:
+ 216              	.L5:
+  68:main.c        ****    r99:    //Goto label for error in DHT reading 
+  69:main.c        ****        humidity    = 99;  
+ 217              		.loc 1 69 0
+ 218 00e4 064B     		ldr	r3, .L19+4
+ 219 00e6 6322     		mov	r2, #99
+ 220 00e8 1A60     		str	r2, [r3]
+  70:main.c        ****        temperature = 99;  
+ 221              		.loc 1 70 0
+ 222 00ea 5A60     		str	r2, [r3, #4]
+  71:main.c        ****        CyExitCriticalSection(IState); 
+ 223              		.loc 1 71 0
+ 224 00ec 034B     		ldr	r3, .L19
+ 225 00ee 1878     		ldrb	r0, [r3]
+ 226 00f0 FFF7FEFF 		bl	CyExitCriticalSection
+ 227              	.LVL27:
+  72:main.c        ****        return 99; 
+ 228              		.loc 1 72 0
+ 229 00f4 6320     		mov	r0, #99
+ 230              	.LVL28:
+ 231              	.L18:
+  73:main.c        **** }
+ 232              		.loc 1 73 0
+ 233 00f6 03B0     		add	sp, sp, #12
+ 234              		@ sp needed
+ 235 00f8 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 236              	.L20:
+ 237 00fa C046     		.align	2
+ 238              	.L19:
+ 239 00fc 00000000 		.word	.LANCHOR0
+ 240 0100 00000000 		.word	.LANCHOR1
+ 241              		.cfi_endproc
+ 242              	.LFE34:
+ 243              		.size	DHTread, .-DHTread
+ 244              		.section	.text.main,"ax",%progbits
+ 245              		.align	2
+ 246              		.global	main
+ 247              		.code	16
+ 248              		.thumb_func
+ 249              		.type	main, %function
+ 250              	main:
+ 251              	.LFB35:
+  74:main.c        **** int main(void)
+  75:main.c        **** {
+ 252              		.loc 1 75 0
+ 253              		.cfi_startproc
+ 254 0000 00B5     		push	{lr}
+ 255              		.cfi_def_cfa_offset 4
+ 256              		.cfi_offset 14, -4
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 7
+
+
+ 257 0002 8BB0     		sub	sp, sp, #44
+ 258              		.cfi_def_cfa_offset 48
+  76:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 259              		.loc 1 76 0
+ 260              	@ 76 "main.c" 1
+ 261 0004 62B6     		CPSIE   i
+ 262              	@ 0 "" 2
+  77:main.c        ****     
+  78:main.c        ****     char outputstring[40];
+  79:main.c        ****     UART_Start();
+ 263              		.loc 1 79 0
+ 264              		.code	16
+ 265 0006 FFF7FEFF 		bl	UART_Start
+ 266              	.LVL29:
+ 267              	.L22:
+  80:main.c        ****     
+  81:main.c        ****     for(;;)
+  82:main.c        ****     {
+  83:main.c        ****         DHTread();
+ 268              		.loc 1 83 0 discriminator 1
+ 269 000a FFF7FEFF 		bl	DHTread
+ 270              	.LVL30:
+  84:main.c        ****         sprintf(outputstring,"Temperature=%i Humidity= %i \r\n",temperature,humidity);
+ 271              		.loc 1 84 0 discriminator 1
+ 272 000e 074B     		ldr	r3, .L23
+ 273 0010 5A68     		ldr	r2, [r3, #4]
+ 274 0012 1B68     		ldr	r3, [r3]
+ 275 0014 6846     		mov	r0, sp
+ 276 0016 0649     		ldr	r1, .L23+4
+ 277 0018 FFF7FEFF 		bl	sprintf
+ 278              	.LVL31:
+  85:main.c        ****         UART_UartPutString(outputstring);
+ 279              		.loc 1 85 0 discriminator 1
+ 280 001c 6846     		mov	r0, sp
+ 281 001e FFF7FEFF 		bl	UART_UartPutString
+ 282              	.LVL32:
+  86:main.c        ****         CyDelay(5000);  //Delay in milli seconds.        
+ 283              		.loc 1 86 0 discriminator 1
+ 284 0022 0448     		ldr	r0, .L23+8
+ 285 0024 FFF7FEFF 		bl	CyDelay
+ 286              	.LVL33:
+  87:main.c        ****     }
+ 287              		.loc 1 87 0 discriminator 1
+ 288 0028 EFE7     		b	.L22
+ 289              	.L24:
+ 290 002a C046     		.align	2
+ 291              	.L23:
+ 292 002c 00000000 		.word	.LANCHOR1
+ 293 0030 00000000 		.word	.LC2
+ 294 0034 88130000 		.word	5000
+ 295              		.cfi_endproc
+ 296              	.LFE35:
+ 297              		.size	main, .-main
+ 298              		.data
+ 299              		.align	2
+ 300              		.set	.LANCHOR1,. + 0
+ 301              		.type	humidity, %object
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 8
+
+
+ 302              		.size	humidity, 4
+ 303              	humidity:
+ 304 0000 63000000 		.word	99
+ 305              		.type	temperature, %object
+ 306              		.size	temperature, 4
+ 307              	temperature:
+ 308 0004 63000000 		.word	99
+ 309              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 310              		.align	2
+ 311              	.LC2:
+ 312 0000 54656D70 		.ascii	"Temperature=%i Humidity= %i \015\012\000"
+ 312      65726174 
+ 312      7572653D 
+ 312      25692048 
+ 312      756D6964 
+ 313 001f 00       		.bss
+ 314              		.set	.LANCHOR0,. + 0
+ 315              		.type	IState, %object
+ 316              		.size	IState, 1
+ 317              	IState:
+ 318 0000 00       		.space	1
+ 319              		.type	i, %object
+ 320              		.size	i, 1
+ 321              	i:
+ 322 0001 00       		.space	1
+ 323              		.text
+ 324              	.Letext0:
+ 325              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 326              		.file 3 "Generated_Source\\PSoC4/DHT.h"
+ 327              		.file 4 "Generated_Source\\PSoC4/CyLib.h"
+ 328              		.file 5 "Generated_Source\\PSoC4/UART_SPI_UART.h"
+ 329              		.file 6 "Generated_Source\\PSoC4/UART.h"
+ 330              		.file 7 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9.
+ 331              		.section	.debug_info,"",%progbits
+ 332              	.Ldebug_info0:
+ 333 0000 1F030000 		.4byte	0x31f
+ 334 0004 0400     		.2byte	0x4
+ 335 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 336 000a 04       		.byte	0x4
+ 337 000b 01       		.uleb128 0x1
+ 338 000c 53010000 		.4byte	.LASF29
+ 339 0010 01       		.byte	0x1
+ 340 0011 42010000 		.4byte	.LASF30
+ 341 0015 B1000000 		.4byte	.LASF31
+ 342 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 343 001d 00000000 		.4byte	0
+ 344 0021 00000000 		.4byte	.Ldebug_line0
+ 345 0025 02       		.uleb128 0x2
+ 346 0026 01       		.byte	0x1
+ 347 0027 06       		.byte	0x6
+ 348 0028 22020000 		.4byte	.LASF0
+ 349 002c 02       		.uleb128 0x2
+ 350 002d 01       		.byte	0x1
+ 351 002e 08       		.byte	0x8
+ 352 002f 4D000000 		.4byte	.LASF1
+ 353 0033 02       		.uleb128 0x2
+ 354 0034 02       		.byte	0x2
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 9
+
+
+ 355 0035 05       		.byte	0x5
+ 356 0036 E1010000 		.4byte	.LASF2
+ 357 003a 02       		.uleb128 0x2
+ 358 003b 02       		.byte	0x2
+ 359 003c 07       		.byte	0x7
+ 360 003d 73000000 		.4byte	.LASF3
+ 361 0041 02       		.uleb128 0x2
+ 362 0042 04       		.byte	0x4
+ 363 0043 05       		.byte	0x5
+ 364 0044 19020000 		.4byte	.LASF4
+ 365 0048 02       		.uleb128 0x2
+ 366 0049 04       		.byte	0x4
+ 367 004a 07       		.byte	0x7
+ 368 004b 61000000 		.4byte	.LASF5
+ 369 004f 02       		.uleb128 0x2
+ 370 0050 08       		.byte	0x8
+ 371 0051 05       		.byte	0x5
+ 372 0052 00000000 		.4byte	.LASF6
+ 373 0056 02       		.uleb128 0x2
+ 374 0057 08       		.byte	0x8
+ 375 0058 07       		.byte	0x7
+ 376 0059 FC000000 		.4byte	.LASF7
+ 377 005d 03       		.uleb128 0x3
+ 378 005e 04       		.byte	0x4
+ 379 005f 05       		.byte	0x5
+ 380 0060 696E7400 		.ascii	"int\000"
+ 381 0064 02       		.uleb128 0x2
+ 382 0065 04       		.byte	0x4
+ 383 0066 07       		.byte	0x7
+ 384 0067 A4000000 		.4byte	.LASF8
+ 385 006b 04       		.uleb128 0x4
+ 386 006c F8010000 		.4byte	.LASF9
+ 387 0070 02       		.byte	0x2
+ 388 0071 B901     		.2byte	0x1b9
+ 389 0073 2C000000 		.4byte	0x2c
+ 390 0077 04       		.uleb128 0x4
+ 391 0078 9D000000 		.4byte	.LASF10
+ 392 007c 02       		.byte	0x2
+ 393 007d BB01     		.2byte	0x1bb
+ 394 007f 48000000 		.4byte	0x48
+ 395 0083 02       		.uleb128 0x2
+ 396 0084 04       		.byte	0x4
+ 397 0085 04       		.byte	0x4
+ 398 0086 17000000 		.4byte	.LASF11
+ 399 008a 02       		.uleb128 0x2
+ 400 008b 08       		.byte	0x8
+ 401 008c 04       		.byte	0x4
+ 402 008d 91000000 		.4byte	.LASF12
+ 403 0091 04       		.uleb128 0x4
+ 404 0092 5B000000 		.4byte	.LASF13
+ 405 0096 02       		.byte	0x2
+ 406 0097 CA01     		.2byte	0x1ca
+ 407 0099 9D000000 		.4byte	0x9d
+ 408 009d 02       		.uleb128 0x2
+ 409 009e 01       		.byte	0x1
+ 410 009f 08       		.byte	0x8
+ 411 00a0 49010000 		.4byte	.LASF14
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 10
+
+
+ 412 00a4 02       		.uleb128 0x2
+ 413 00a5 04       		.byte	0x4
+ 414 00a6 07       		.byte	0x7
+ 415 00a7 32010000 		.4byte	.LASF15
+ 416 00ab 05       		.uleb128 0x5
+ 417 00ac 04       		.byte	0x4
+ 418 00ad 9D000000 		.4byte	0x9d
+ 419 00b1 05       		.uleb128 0x5
+ 420 00b2 04       		.byte	0x4
+ 421 00b3 B7000000 		.4byte	0xb7
+ 422 00b7 06       		.uleb128 0x6
+ 423 00b8 9D000000 		.4byte	0x9d
+ 424 00bc 07       		.uleb128 0x7
+ 425 00bd 2A010000 		.4byte	.LASF32
+ 426 00c1 01       		.byte	0x1
+ 427 00c2 13       		.byte	0x13
+ 428 00c3 5D000000 		.4byte	0x5d
+ 429 00c7 00000000 		.4byte	.LFB34
+ 430 00cb 04010000 		.4byte	.LFE34-.LFB34
+ 431 00cf 01       		.uleb128 0x1
+ 432 00d0 9C       		.byte	0x9c
+ 433 00d1 BC010000 		.4byte	0x1bc
+ 434 00d5 08       		.uleb128 0x8
+ 435 00d6 4E010000 		.4byte	.LASF16
+ 436 00da 01       		.byte	0x1
+ 437 00db 16       		.byte	0x16
+ 438 00dc BC010000 		.4byte	0x1bc
+ 439 00e0 02       		.uleb128 0x2
+ 440 00e1 91       		.byte	0x91
+ 441 00e2 60       		.sleb128 -32
+ 442 00e3 09       		.uleb128 0x9
+ 443 00e4 636E7400 		.ascii	"cnt\000"
+ 444 00e8 01       		.byte	0x1
+ 445 00e9 17       		.byte	0x17
+ 446 00ea 6B000000 		.4byte	0x6b
+ 447 00ee 00000000 		.4byte	.LLST0
+ 448 00f2 09       		.uleb128 0x9
+ 449 00f3 69647800 		.ascii	"idx\000"
+ 450 00f7 01       		.byte	0x1
+ 451 00f8 18       		.byte	0x18
+ 452 00f9 6B000000 		.4byte	0x6b
+ 453 00fd 4D000000 		.4byte	.LLST1
+ 454 0101 0A       		.uleb128 0xa
+ 455 0102 14020000 		.4byte	.LASF17
+ 456 0106 01       		.byte	0x1
+ 457 0107 19       		.byte	0x19
+ 458 0108 5D000000 		.4byte	0x5d
+ 459 010c 00       		.byte	0
+ 460 010d 0B       		.uleb128 0xb
+ 461 010e 1D000000 		.4byte	.LASF18
+ 462 0112 01       		.byte	0x1
+ 463 0113 1A       		.byte	0x1a
+ 464 0114 5D000000 		.4byte	0x5d
+ 465 0118 83000000 		.4byte	.LLST2
+ 466 011c 0C       		.uleb128 0xc
+ 467 011d 72393900 		.ascii	"r99\000"
+ 468 0121 01       		.byte	0x1
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 11
+
+
+ 469 0122 44       		.byte	0x44
+ 470 0123 E4000000 		.4byte	.L5
+ 471 0127 0D       		.uleb128 0xd
+ 472 0128 08000000 		.4byte	.LVL0
+ 473 012c 9A020000 		.4byte	0x29a
+ 474 0130 0E       		.uleb128 0xe
+ 475 0131 2C000000 		.4byte	.LVL2
+ 476 0135 A5020000 		.4byte	0x2a5
+ 477 0139 43010000 		.4byte	0x143
+ 478 013d 0F       		.uleb128 0xf
+ 479 013e 01       		.uleb128 0x1
+ 480 013f 50       		.byte	0x50
+ 481 0140 01       		.uleb128 0x1
+ 482 0141 30       		.byte	0x30
+ 483 0142 00       		.byte	0
+ 484 0143 0E       		.uleb128 0xe
+ 485 0144 32000000 		.4byte	.LVL3
+ 486 0148 B6020000 		.4byte	0x2b6
+ 487 014c 56010000 		.4byte	0x156
+ 488 0150 0F       		.uleb128 0xf
+ 489 0151 01       		.uleb128 0x1
+ 490 0152 50       		.byte	0x50
+ 491 0153 01       		.uleb128 0x1
+ 492 0154 43       		.byte	0x43
+ 493 0155 00       		.byte	0
+ 494 0156 0E       		.uleb128 0xe
+ 495 0157 38000000 		.4byte	.LVL4
+ 496 015b A5020000 		.4byte	0x2a5
+ 497 015f 69010000 		.4byte	0x169
+ 498 0163 0F       		.uleb128 0xf
+ 499 0164 01       		.uleb128 0x1
+ 500 0165 50       		.byte	0x50
+ 501 0166 01       		.uleb128 0x1
+ 502 0167 31       		.byte	0x31
+ 503 0168 00       		.byte	0
+ 504 0169 0D       		.uleb128 0xd
+ 505 016a 4A000000 		.4byte	.LVL8
+ 506 016e C7020000 		.4byte	0x2c7
+ 507 0172 0D       		.uleb128 0xd
+ 508 0173 5E000000 		.4byte	.LVL10
+ 509 0177 C7020000 		.4byte	0x2c7
+ 510 017b 0D       		.uleb128 0xd
+ 511 017c 66000000 		.4byte	.LVL11
+ 512 0180 C7020000 		.4byte	0x2c7
+ 513 0184 0D       		.uleb128 0xd
+ 514 0185 7A000000 		.4byte	.LVL13
+ 515 0189 C7020000 		.4byte	0x2c7
+ 516 018d 0D       		.uleb128 0xd
+ 517 018e 88000000 		.4byte	.LVL16
+ 518 0192 C7020000 		.4byte	0x2c7
+ 519 0196 0D       		.uleb128 0xd
+ 520 0197 DA000000 		.4byte	.LVL24
+ 521 019b D2020000 		.4byte	0x2d2
+ 522 019f 0E       		.uleb128 0xe
+ 523 01a0 E0000000 		.4byte	.LVL25
+ 524 01a4 B6020000 		.4byte	0x2b6
+ 525 01a8 B2010000 		.4byte	0x1b2
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 12
+
+
+ 526 01ac 0F       		.uleb128 0xf
+ 527 01ad 01       		.uleb128 0x1
+ 528 01ae 50       		.byte	0x50
+ 529 01af 01       		.uleb128 0x1
+ 530 01b0 31       		.byte	0x31
+ 531 01b1 00       		.byte	0
+ 532 01b2 0D       		.uleb128 0xd
+ 533 01b3 F4000000 		.4byte	.LVL27
+ 534 01b7 D2020000 		.4byte	0x2d2
+ 535 01bb 00       		.byte	0
+ 536 01bc 10       		.uleb128 0x10
+ 537 01bd 6B000000 		.4byte	0x6b
+ 538 01c1 CC010000 		.4byte	0x1cc
+ 539 01c5 11       		.uleb128 0x11
+ 540 01c6 A4000000 		.4byte	0xa4
+ 541 01ca 04       		.byte	0x4
+ 542 01cb 00       		.byte	0
+ 543 01cc 12       		.uleb128 0x12
+ 544 01cd 98000000 		.4byte	.LASF33
+ 545 01d1 01       		.byte	0x1
+ 546 01d2 4A       		.byte	0x4a
+ 547 01d3 5D000000 		.4byte	0x5d
+ 548 01d7 00000000 		.4byte	.LFB35
+ 549 01db 38000000 		.4byte	.LFE35-.LFB35
+ 550 01df 01       		.uleb128 0x1
+ 551 01e0 9C       		.byte	0x9c
+ 552 01e1 48020000 		.4byte	0x248
+ 553 01e5 08       		.uleb128 0x8
+ 554 01e6 EB010000 		.4byte	.LASF19
+ 555 01ea 01       		.byte	0x1
+ 556 01eb 4E       		.byte	0x4e
+ 557 01ec 48020000 		.4byte	0x248
+ 558 01f0 02       		.uleb128 0x2
+ 559 01f1 91       		.byte	0x91
+ 560 01f2 50       		.sleb128 -48
+ 561 01f3 0D       		.uleb128 0xd
+ 562 01f4 0A000000 		.4byte	.LVL29
+ 563 01f8 E3020000 		.4byte	0x2e3
+ 564 01fc 0D       		.uleb128 0xd
+ 565 01fd 0E000000 		.4byte	.LVL30
+ 566 0201 BC000000 		.4byte	0xbc
+ 567 0205 0E       		.uleb128 0xe
+ 568 0206 1C000000 		.4byte	.LVL31
+ 569 020a EA020000 		.4byte	0x2ea
+ 570 020e 22020000 		.4byte	0x222
+ 571 0212 0F       		.uleb128 0xf
+ 572 0213 01       		.uleb128 0x1
+ 573 0214 51       		.byte	0x51
+ 574 0215 05       		.uleb128 0x5
+ 575 0216 03       		.byte	0x3
+ 576 0217 00000000 		.4byte	.LC2
+ 577 021b 0F       		.uleb128 0xf
+ 578 021c 01       		.uleb128 0x1
+ 579 021d 50       		.byte	0x50
+ 580 021e 02       		.uleb128 0x2
+ 581 021f 7D       		.byte	0x7d
+ 582 0220 00       		.sleb128 0
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 13
+
+
+ 583 0221 00       		.byte	0
+ 584 0222 0E       		.uleb128 0xe
+ 585 0223 22000000 		.4byte	.LVL32
+ 586 0227 05030000 		.4byte	0x305
+ 587 022b 36020000 		.4byte	0x236
+ 588 022f 0F       		.uleb128 0xf
+ 589 0230 01       		.uleb128 0x1
+ 590 0231 50       		.byte	0x50
+ 591 0232 02       		.uleb128 0x2
+ 592 0233 7D       		.byte	0x7d
+ 593 0234 00       		.sleb128 0
+ 594 0235 00       		.byte	0
+ 595 0236 13       		.uleb128 0x13
+ 596 0237 28000000 		.4byte	.LVL33
+ 597 023b B6020000 		.4byte	0x2b6
+ 598 023f 0F       		.uleb128 0xf
+ 599 0240 01       		.uleb128 0x1
+ 600 0241 50       		.byte	0x50
+ 601 0242 03       		.uleb128 0x3
+ 602 0243 0A       		.byte	0xa
+ 603 0244 8813     		.2byte	0x1388
+ 604 0246 00       		.byte	0
+ 605 0247 00       		.byte	0
+ 606 0248 10       		.uleb128 0x10
+ 607 0249 9D000000 		.4byte	0x9d
+ 608 024d 58020000 		.4byte	0x258
+ 609 0251 11       		.uleb128 0x11
+ 610 0252 A4000000 		.4byte	0xa4
+ 611 0256 27       		.byte	0x27
+ 612 0257 00       		.byte	0
+ 613 0258 08       		.uleb128 0x8
+ 614 0259 41000000 		.4byte	.LASF20
+ 615 025d 01       		.byte	0x1
+ 616 025e 0F       		.byte	0xf
+ 617 025f 5D000000 		.4byte	0x5d
+ 618 0263 05       		.uleb128 0x5
+ 619 0264 03       		.byte	0x3
+ 620 0265 04000000 		.4byte	temperature
+ 621 0269 08       		.uleb128 0x8
+ 622 026a 0E000000 		.4byte	.LASF21
+ 623 026e 01       		.byte	0x1
+ 624 026f 10       		.byte	0x10
+ 625 0270 5D000000 		.4byte	0x5d
+ 626 0274 05       		.uleb128 0x5
+ 627 0275 03       		.byte	0x3
+ 628 0276 00000000 		.4byte	humidity
+ 629 027a 08       		.uleb128 0x8
+ 630 027b 3B010000 		.4byte	.LASF22
+ 631 027f 01       		.byte	0x1
+ 632 0280 11       		.byte	0x11
+ 633 0281 6B000000 		.4byte	0x6b
+ 634 0285 05       		.uleb128 0x5
+ 635 0286 03       		.byte	0x3
+ 636 0287 00000000 		.4byte	IState
+ 637 028b 14       		.uleb128 0x14
+ 638 028c 6900     		.ascii	"i\000"
+ 639 028e 01       		.byte	0x1
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 14
+
+
+ 640 028f 11       		.byte	0x11
+ 641 0290 6B000000 		.4byte	0x6b
+ 642 0294 05       		.uleb128 0x5
+ 643 0295 03       		.byte	0x3
+ 644 0296 01000000 		.4byte	i
+ 645 029a 15       		.uleb128 0x15
+ 646 029b 13010000 		.4byte	.LASF25
+ 647 029f 04       		.byte	0x4
+ 648 02a0 E5       		.byte	0xe5
+ 649 02a1 6B000000 		.4byte	0x6b
+ 650 02a5 16       		.uleb128 0x16
+ 651 02a6 2E020000 		.4byte	.LASF23
+ 652 02aa 03       		.byte	0x3
+ 653 02ab 33       		.byte	0x33
+ 654 02ac B6020000 		.4byte	0x2b6
+ 655 02b0 17       		.uleb128 0x17
+ 656 02b1 6B000000 		.4byte	0x6b
+ 657 02b5 00       		.byte	0
+ 658 02b6 16       		.uleb128 0x16
+ 659 02b7 40020000 		.4byte	.LASF24
+ 660 02bb 04       		.byte	0x4
+ 661 02bc D9       		.byte	0xd9
+ 662 02bd C7020000 		.4byte	0x2c7
+ 663 02c1 17       		.uleb128 0x17
+ 664 02c2 77000000 		.4byte	0x77
+ 665 02c6 00       		.byte	0
+ 666 02c7 15       		.uleb128 0x15
+ 667 02c8 25000000 		.4byte	.LASF26
+ 668 02cc 03       		.byte	0x3
+ 669 02cd 32       		.byte	0x32
+ 670 02ce 6B000000 		.4byte	0x6b
+ 671 02d2 16       		.uleb128 0x16
+ 672 02d3 FE010000 		.4byte	.LASF27
+ 673 02d7 04       		.byte	0x4
+ 674 02d8 E6       		.byte	0xe6
+ 675 02d9 E3020000 		.4byte	0x2e3
+ 676 02dd 17       		.uleb128 0x17
+ 677 02de 6B000000 		.4byte	0x6b
+ 678 02e2 00       		.byte	0
+ 679 02e3 18       		.uleb128 0x18
+ 680 02e4 86000000 		.4byte	.LASF34
+ 681 02e8 06       		.byte	0x6
+ 682 02e9 6E       		.byte	0x6e
+ 683 02ea 19       		.uleb128 0x19
+ 684 02eb 38020000 		.4byte	.LASF35
+ 685 02ef 07       		.byte	0x7
+ 686 02f0 DE       		.byte	0xde
+ 687 02f1 5D000000 		.4byte	0x5d
+ 688 02f5 05030000 		.4byte	0x305
+ 689 02f9 17       		.uleb128 0x17
+ 690 02fa AB000000 		.4byte	0xab
+ 691 02fe 17       		.uleb128 0x17
+ 692 02ff B1000000 		.4byte	0xb1
+ 693 0303 1A       		.uleb128 0x1a
+ 694 0304 00       		.byte	0
+ 695 0305 1B       		.uleb128 0x1b
+ 696 0306 2E000000 		.4byte	.LASF28
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 15
+
+
+ 697 030a 05       		.byte	0x5
+ 698 030b 2103     		.2byte	0x321
+ 699 030d 17030000 		.4byte	0x317
+ 700 0311 17       		.uleb128 0x17
+ 701 0312 17030000 		.4byte	0x317
+ 702 0316 00       		.byte	0
+ 703 0317 05       		.uleb128 0x5
+ 704 0318 04       		.byte	0x4
+ 705 0319 1D030000 		.4byte	0x31d
+ 706 031d 06       		.uleb128 0x6
+ 707 031e 91000000 		.4byte	0x91
+ 708 0322 00       		.byte	0
+ 709              		.section	.debug_abbrev,"",%progbits
+ 710              	.Ldebug_abbrev0:
+ 711 0000 01       		.uleb128 0x1
+ 712 0001 11       		.uleb128 0x11
+ 713 0002 01       		.byte	0x1
+ 714 0003 25       		.uleb128 0x25
+ 715 0004 0E       		.uleb128 0xe
+ 716 0005 13       		.uleb128 0x13
+ 717 0006 0B       		.uleb128 0xb
+ 718 0007 03       		.uleb128 0x3
+ 719 0008 0E       		.uleb128 0xe
+ 720 0009 1B       		.uleb128 0x1b
+ 721 000a 0E       		.uleb128 0xe
+ 722 000b 55       		.uleb128 0x55
+ 723 000c 17       		.uleb128 0x17
+ 724 000d 11       		.uleb128 0x11
+ 725 000e 01       		.uleb128 0x1
+ 726 000f 10       		.uleb128 0x10
+ 727 0010 17       		.uleb128 0x17
+ 728 0011 00       		.byte	0
+ 729 0012 00       		.byte	0
+ 730 0013 02       		.uleb128 0x2
+ 731 0014 24       		.uleb128 0x24
+ 732 0015 00       		.byte	0
+ 733 0016 0B       		.uleb128 0xb
+ 734 0017 0B       		.uleb128 0xb
+ 735 0018 3E       		.uleb128 0x3e
+ 736 0019 0B       		.uleb128 0xb
+ 737 001a 03       		.uleb128 0x3
+ 738 001b 0E       		.uleb128 0xe
+ 739 001c 00       		.byte	0
+ 740 001d 00       		.byte	0
+ 741 001e 03       		.uleb128 0x3
+ 742 001f 24       		.uleb128 0x24
+ 743 0020 00       		.byte	0
+ 744 0021 0B       		.uleb128 0xb
+ 745 0022 0B       		.uleb128 0xb
+ 746 0023 3E       		.uleb128 0x3e
+ 747 0024 0B       		.uleb128 0xb
+ 748 0025 03       		.uleb128 0x3
+ 749 0026 08       		.uleb128 0x8
+ 750 0027 00       		.byte	0
+ 751 0028 00       		.byte	0
+ 752 0029 04       		.uleb128 0x4
+ 753 002a 16       		.uleb128 0x16
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 16
+
+
+ 754 002b 00       		.byte	0
+ 755 002c 03       		.uleb128 0x3
+ 756 002d 0E       		.uleb128 0xe
+ 757 002e 3A       		.uleb128 0x3a
+ 758 002f 0B       		.uleb128 0xb
+ 759 0030 3B       		.uleb128 0x3b
+ 760 0031 05       		.uleb128 0x5
+ 761 0032 49       		.uleb128 0x49
+ 762 0033 13       		.uleb128 0x13
+ 763 0034 00       		.byte	0
+ 764 0035 00       		.byte	0
+ 765 0036 05       		.uleb128 0x5
+ 766 0037 0F       		.uleb128 0xf
+ 767 0038 00       		.byte	0
+ 768 0039 0B       		.uleb128 0xb
+ 769 003a 0B       		.uleb128 0xb
+ 770 003b 49       		.uleb128 0x49
+ 771 003c 13       		.uleb128 0x13
+ 772 003d 00       		.byte	0
+ 773 003e 00       		.byte	0
+ 774 003f 06       		.uleb128 0x6
+ 775 0040 26       		.uleb128 0x26
+ 776 0041 00       		.byte	0
+ 777 0042 49       		.uleb128 0x49
+ 778 0043 13       		.uleb128 0x13
+ 779 0044 00       		.byte	0
+ 780 0045 00       		.byte	0
+ 781 0046 07       		.uleb128 0x7
+ 782 0047 2E       		.uleb128 0x2e
+ 783 0048 01       		.byte	0x1
+ 784 0049 3F       		.uleb128 0x3f
+ 785 004a 19       		.uleb128 0x19
+ 786 004b 03       		.uleb128 0x3
+ 787 004c 0E       		.uleb128 0xe
+ 788 004d 3A       		.uleb128 0x3a
+ 789 004e 0B       		.uleb128 0xb
+ 790 004f 3B       		.uleb128 0x3b
+ 791 0050 0B       		.uleb128 0xb
+ 792 0051 49       		.uleb128 0x49
+ 793 0052 13       		.uleb128 0x13
+ 794 0053 11       		.uleb128 0x11
+ 795 0054 01       		.uleb128 0x1
+ 796 0055 12       		.uleb128 0x12
+ 797 0056 06       		.uleb128 0x6
+ 798 0057 40       		.uleb128 0x40
+ 799 0058 18       		.uleb128 0x18
+ 800 0059 9742     		.uleb128 0x2117
+ 801 005b 19       		.uleb128 0x19
+ 802 005c 01       		.uleb128 0x1
+ 803 005d 13       		.uleb128 0x13
+ 804 005e 00       		.byte	0
+ 805 005f 00       		.byte	0
+ 806 0060 08       		.uleb128 0x8
+ 807 0061 34       		.uleb128 0x34
+ 808 0062 00       		.byte	0
+ 809 0063 03       		.uleb128 0x3
+ 810 0064 0E       		.uleb128 0xe
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 17
+
+
+ 811 0065 3A       		.uleb128 0x3a
+ 812 0066 0B       		.uleb128 0xb
+ 813 0067 3B       		.uleb128 0x3b
+ 814 0068 0B       		.uleb128 0xb
+ 815 0069 49       		.uleb128 0x49
+ 816 006a 13       		.uleb128 0x13
+ 817 006b 02       		.uleb128 0x2
+ 818 006c 18       		.uleb128 0x18
+ 819 006d 00       		.byte	0
+ 820 006e 00       		.byte	0
+ 821 006f 09       		.uleb128 0x9
+ 822 0070 34       		.uleb128 0x34
+ 823 0071 00       		.byte	0
+ 824 0072 03       		.uleb128 0x3
+ 825 0073 08       		.uleb128 0x8
+ 826 0074 3A       		.uleb128 0x3a
+ 827 0075 0B       		.uleb128 0xb
+ 828 0076 3B       		.uleb128 0x3b
+ 829 0077 0B       		.uleb128 0xb
+ 830 0078 49       		.uleb128 0x49
+ 831 0079 13       		.uleb128 0x13
+ 832 007a 02       		.uleb128 0x2
+ 833 007b 17       		.uleb128 0x17
+ 834 007c 00       		.byte	0
+ 835 007d 00       		.byte	0
+ 836 007e 0A       		.uleb128 0xa
+ 837 007f 34       		.uleb128 0x34
+ 838 0080 00       		.byte	0
+ 839 0081 03       		.uleb128 0x3
+ 840 0082 0E       		.uleb128 0xe
+ 841 0083 3A       		.uleb128 0x3a
+ 842 0084 0B       		.uleb128 0xb
+ 843 0085 3B       		.uleb128 0x3b
+ 844 0086 0B       		.uleb128 0xb
+ 845 0087 49       		.uleb128 0x49
+ 846 0088 13       		.uleb128 0x13
+ 847 0089 1C       		.uleb128 0x1c
+ 848 008a 0B       		.uleb128 0xb
+ 849 008b 00       		.byte	0
+ 850 008c 00       		.byte	0
+ 851 008d 0B       		.uleb128 0xb
+ 852 008e 34       		.uleb128 0x34
+ 853 008f 00       		.byte	0
+ 854 0090 03       		.uleb128 0x3
+ 855 0091 0E       		.uleb128 0xe
+ 856 0092 3A       		.uleb128 0x3a
+ 857 0093 0B       		.uleb128 0xb
+ 858 0094 3B       		.uleb128 0x3b
+ 859 0095 0B       		.uleb128 0xb
+ 860 0096 49       		.uleb128 0x49
+ 861 0097 13       		.uleb128 0x13
+ 862 0098 02       		.uleb128 0x2
+ 863 0099 17       		.uleb128 0x17
+ 864 009a 00       		.byte	0
+ 865 009b 00       		.byte	0
+ 866 009c 0C       		.uleb128 0xc
+ 867 009d 0A       		.uleb128 0xa
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 18
+
+
+ 868 009e 00       		.byte	0
+ 869 009f 03       		.uleb128 0x3
+ 870 00a0 08       		.uleb128 0x8
+ 871 00a1 3A       		.uleb128 0x3a
+ 872 00a2 0B       		.uleb128 0xb
+ 873 00a3 3B       		.uleb128 0x3b
+ 874 00a4 0B       		.uleb128 0xb
+ 875 00a5 11       		.uleb128 0x11
+ 876 00a6 01       		.uleb128 0x1
+ 877 00a7 00       		.byte	0
+ 878 00a8 00       		.byte	0
+ 879 00a9 0D       		.uleb128 0xd
+ 880 00aa 898201   		.uleb128 0x4109
+ 881 00ad 00       		.byte	0
+ 882 00ae 11       		.uleb128 0x11
+ 883 00af 01       		.uleb128 0x1
+ 884 00b0 31       		.uleb128 0x31
+ 885 00b1 13       		.uleb128 0x13
+ 886 00b2 00       		.byte	0
+ 887 00b3 00       		.byte	0
+ 888 00b4 0E       		.uleb128 0xe
+ 889 00b5 898201   		.uleb128 0x4109
+ 890 00b8 01       		.byte	0x1
+ 891 00b9 11       		.uleb128 0x11
+ 892 00ba 01       		.uleb128 0x1
+ 893 00bb 31       		.uleb128 0x31
+ 894 00bc 13       		.uleb128 0x13
+ 895 00bd 01       		.uleb128 0x1
+ 896 00be 13       		.uleb128 0x13
+ 897 00bf 00       		.byte	0
+ 898 00c0 00       		.byte	0
+ 899 00c1 0F       		.uleb128 0xf
+ 900 00c2 8A8201   		.uleb128 0x410a
+ 901 00c5 00       		.byte	0
+ 902 00c6 02       		.uleb128 0x2
+ 903 00c7 18       		.uleb128 0x18
+ 904 00c8 9142     		.uleb128 0x2111
+ 905 00ca 18       		.uleb128 0x18
+ 906 00cb 00       		.byte	0
+ 907 00cc 00       		.byte	0
+ 908 00cd 10       		.uleb128 0x10
+ 909 00ce 01       		.uleb128 0x1
+ 910 00cf 01       		.byte	0x1
+ 911 00d0 49       		.uleb128 0x49
+ 912 00d1 13       		.uleb128 0x13
+ 913 00d2 01       		.uleb128 0x1
+ 914 00d3 13       		.uleb128 0x13
+ 915 00d4 00       		.byte	0
+ 916 00d5 00       		.byte	0
+ 917 00d6 11       		.uleb128 0x11
+ 918 00d7 21       		.uleb128 0x21
+ 919 00d8 00       		.byte	0
+ 920 00d9 49       		.uleb128 0x49
+ 921 00da 13       		.uleb128 0x13
+ 922 00db 2F       		.uleb128 0x2f
+ 923 00dc 0B       		.uleb128 0xb
+ 924 00dd 00       		.byte	0
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 19
+
+
+ 925 00de 00       		.byte	0
+ 926 00df 12       		.uleb128 0x12
+ 927 00e0 2E       		.uleb128 0x2e
+ 928 00e1 01       		.byte	0x1
+ 929 00e2 3F       		.uleb128 0x3f
+ 930 00e3 19       		.uleb128 0x19
+ 931 00e4 03       		.uleb128 0x3
+ 932 00e5 0E       		.uleb128 0xe
+ 933 00e6 3A       		.uleb128 0x3a
+ 934 00e7 0B       		.uleb128 0xb
+ 935 00e8 3B       		.uleb128 0x3b
+ 936 00e9 0B       		.uleb128 0xb
+ 937 00ea 27       		.uleb128 0x27
+ 938 00eb 19       		.uleb128 0x19
+ 939 00ec 49       		.uleb128 0x49
+ 940 00ed 13       		.uleb128 0x13
+ 941 00ee 11       		.uleb128 0x11
+ 942 00ef 01       		.uleb128 0x1
+ 943 00f0 12       		.uleb128 0x12
+ 944 00f1 06       		.uleb128 0x6
+ 945 00f2 40       		.uleb128 0x40
+ 946 00f3 18       		.uleb128 0x18
+ 947 00f4 9742     		.uleb128 0x2117
+ 948 00f6 19       		.uleb128 0x19
+ 949 00f7 01       		.uleb128 0x1
+ 950 00f8 13       		.uleb128 0x13
+ 951 00f9 00       		.byte	0
+ 952 00fa 00       		.byte	0
+ 953 00fb 13       		.uleb128 0x13
+ 954 00fc 898201   		.uleb128 0x4109
+ 955 00ff 01       		.byte	0x1
+ 956 0100 11       		.uleb128 0x11
+ 957 0101 01       		.uleb128 0x1
+ 958 0102 31       		.uleb128 0x31
+ 959 0103 13       		.uleb128 0x13
+ 960 0104 00       		.byte	0
+ 961 0105 00       		.byte	0
+ 962 0106 14       		.uleb128 0x14
+ 963 0107 34       		.uleb128 0x34
+ 964 0108 00       		.byte	0
+ 965 0109 03       		.uleb128 0x3
+ 966 010a 08       		.uleb128 0x8
+ 967 010b 3A       		.uleb128 0x3a
+ 968 010c 0B       		.uleb128 0xb
+ 969 010d 3B       		.uleb128 0x3b
+ 970 010e 0B       		.uleb128 0xb
+ 971 010f 49       		.uleb128 0x49
+ 972 0110 13       		.uleb128 0x13
+ 973 0111 02       		.uleb128 0x2
+ 974 0112 18       		.uleb128 0x18
+ 975 0113 00       		.byte	0
+ 976 0114 00       		.byte	0
+ 977 0115 15       		.uleb128 0x15
+ 978 0116 2E       		.uleb128 0x2e
+ 979 0117 00       		.byte	0
+ 980 0118 3F       		.uleb128 0x3f
+ 981 0119 19       		.uleb128 0x19
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 20
+
+
+ 982 011a 03       		.uleb128 0x3
+ 983 011b 0E       		.uleb128 0xe
+ 984 011c 3A       		.uleb128 0x3a
+ 985 011d 0B       		.uleb128 0xb
+ 986 011e 3B       		.uleb128 0x3b
+ 987 011f 0B       		.uleb128 0xb
+ 988 0120 27       		.uleb128 0x27
+ 989 0121 19       		.uleb128 0x19
+ 990 0122 49       		.uleb128 0x49
+ 991 0123 13       		.uleb128 0x13
+ 992 0124 3C       		.uleb128 0x3c
+ 993 0125 19       		.uleb128 0x19
+ 994 0126 00       		.byte	0
+ 995 0127 00       		.byte	0
+ 996 0128 16       		.uleb128 0x16
+ 997 0129 2E       		.uleb128 0x2e
+ 998 012a 01       		.byte	0x1
+ 999 012b 3F       		.uleb128 0x3f
+ 1000 012c 19       		.uleb128 0x19
+ 1001 012d 03       		.uleb128 0x3
+ 1002 012e 0E       		.uleb128 0xe
+ 1003 012f 3A       		.uleb128 0x3a
+ 1004 0130 0B       		.uleb128 0xb
+ 1005 0131 3B       		.uleb128 0x3b
+ 1006 0132 0B       		.uleb128 0xb
+ 1007 0133 27       		.uleb128 0x27
+ 1008 0134 19       		.uleb128 0x19
+ 1009 0135 3C       		.uleb128 0x3c
+ 1010 0136 19       		.uleb128 0x19
+ 1011 0137 01       		.uleb128 0x1
+ 1012 0138 13       		.uleb128 0x13
+ 1013 0139 00       		.byte	0
+ 1014 013a 00       		.byte	0
+ 1015 013b 17       		.uleb128 0x17
+ 1016 013c 05       		.uleb128 0x5
+ 1017 013d 00       		.byte	0
+ 1018 013e 49       		.uleb128 0x49
+ 1019 013f 13       		.uleb128 0x13
+ 1020 0140 00       		.byte	0
+ 1021 0141 00       		.byte	0
+ 1022 0142 18       		.uleb128 0x18
+ 1023 0143 2E       		.uleb128 0x2e
+ 1024 0144 00       		.byte	0
+ 1025 0145 3F       		.uleb128 0x3f
+ 1026 0146 19       		.uleb128 0x19
+ 1027 0147 03       		.uleb128 0x3
+ 1028 0148 0E       		.uleb128 0xe
+ 1029 0149 3A       		.uleb128 0x3a
+ 1030 014a 0B       		.uleb128 0xb
+ 1031 014b 3B       		.uleb128 0x3b
+ 1032 014c 0B       		.uleb128 0xb
+ 1033 014d 27       		.uleb128 0x27
+ 1034 014e 19       		.uleb128 0x19
+ 1035 014f 3C       		.uleb128 0x3c
+ 1036 0150 19       		.uleb128 0x19
+ 1037 0151 00       		.byte	0
+ 1038 0152 00       		.byte	0
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 21
+
+
+ 1039 0153 19       		.uleb128 0x19
+ 1040 0154 2E       		.uleb128 0x2e
+ 1041 0155 01       		.byte	0x1
+ 1042 0156 3F       		.uleb128 0x3f
+ 1043 0157 19       		.uleb128 0x19
+ 1044 0158 03       		.uleb128 0x3
+ 1045 0159 0E       		.uleb128 0xe
+ 1046 015a 3A       		.uleb128 0x3a
+ 1047 015b 0B       		.uleb128 0xb
+ 1048 015c 3B       		.uleb128 0x3b
+ 1049 015d 0B       		.uleb128 0xb
+ 1050 015e 27       		.uleb128 0x27
+ 1051 015f 19       		.uleb128 0x19
+ 1052 0160 49       		.uleb128 0x49
+ 1053 0161 13       		.uleb128 0x13
+ 1054 0162 3C       		.uleb128 0x3c
+ 1055 0163 19       		.uleb128 0x19
+ 1056 0164 01       		.uleb128 0x1
+ 1057 0165 13       		.uleb128 0x13
+ 1058 0166 00       		.byte	0
+ 1059 0167 00       		.byte	0
+ 1060 0168 1A       		.uleb128 0x1a
+ 1061 0169 18       		.uleb128 0x18
+ 1062 016a 00       		.byte	0
+ 1063 016b 00       		.byte	0
+ 1064 016c 00       		.byte	0
+ 1065 016d 1B       		.uleb128 0x1b
+ 1066 016e 2E       		.uleb128 0x2e
+ 1067 016f 01       		.byte	0x1
+ 1068 0170 3F       		.uleb128 0x3f
+ 1069 0171 19       		.uleb128 0x19
+ 1070 0172 03       		.uleb128 0x3
+ 1071 0173 0E       		.uleb128 0xe
+ 1072 0174 3A       		.uleb128 0x3a
+ 1073 0175 0B       		.uleb128 0xb
+ 1074 0176 3B       		.uleb128 0x3b
+ 1075 0177 05       		.uleb128 0x5
+ 1076 0178 27       		.uleb128 0x27
+ 1077 0179 19       		.uleb128 0x19
+ 1078 017a 3C       		.uleb128 0x3c
+ 1079 017b 19       		.uleb128 0x19
+ 1080 017c 01       		.uleb128 0x1
+ 1081 017d 13       		.uleb128 0x13
+ 1082 017e 00       		.byte	0
+ 1083 017f 00       		.byte	0
+ 1084 0180 00       		.byte	0
+ 1085              		.section	.debug_loc,"",%progbits
+ 1086              	.Ldebug_loc0:
+ 1087              	.LLST0:
+ 1088 0000 0C000000 		.4byte	.LVL1
+ 1089 0004 76000000 		.4byte	.LVL12
+ 1090 0008 0200     		.2byte	0x2
+ 1091 000a 37       		.byte	0x37
+ 1092 000b 9F       		.byte	0x9f
+ 1093 000c 76000000 		.4byte	.LVL12
+ 1094 0010 A8000000 		.4byte	.LVL17
+ 1095 0014 0100     		.2byte	0x1
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 22
+
+
+ 1096 0016 56       		.byte	0x56
+ 1097 0017 A8000000 		.4byte	.LVL17
+ 1098 001b B0000000 		.4byte	.LVL20
+ 1099 001f 0200     		.2byte	0x2
+ 1100 0021 37       		.byte	0x37
+ 1101 0022 9F       		.byte	0x9f
+ 1102 0023 B0000000 		.4byte	.LVL20
+ 1103 0027 B2000000 		.4byte	.LVL21
+ 1104 002b 0100     		.2byte	0x1
+ 1105 002d 56       		.byte	0x56
+ 1106 002e B4000000 		.4byte	.LVL22
+ 1107 0032 E4000000 		.4byte	.LVL26
+ 1108 0036 0100     		.2byte	0x1
+ 1109 0038 56       		.byte	0x56
+ 1110 0039 E4000000 		.4byte	.LVL26
+ 1111 003d F6000000 		.4byte	.LVL28
+ 1112 0041 0200     		.2byte	0x2
+ 1113 0043 37       		.byte	0x37
+ 1114 0044 9F       		.byte	0x9f
+ 1115 0045 00000000 		.4byte	0
+ 1116 0049 00000000 		.4byte	0
+ 1117              	.LLST1:
+ 1118 004d 0C000000 		.4byte	.LVL1
+ 1119 0051 76000000 		.4byte	.LVL12
+ 1120 0055 0200     		.2byte	0x2
+ 1121 0057 30       		.byte	0x30
+ 1122 0058 9F       		.byte	0x9f
+ 1123 0059 76000000 		.4byte	.LVL12
+ 1124 005d AA000000 		.4byte	.LVL18
+ 1125 0061 0100     		.2byte	0x1
+ 1126 0063 57       		.byte	0x57
+ 1127 0064 AC000000 		.4byte	.LVL19
+ 1128 0068 E4000000 		.4byte	.LVL26
+ 1129 006c 0100     		.2byte	0x1
+ 1130 006e 57       		.byte	0x57
+ 1131 006f E4000000 		.4byte	.LVL26
+ 1132 0073 F6000000 		.4byte	.LVL28
+ 1133 0077 0200     		.2byte	0x2
+ 1134 0079 30       		.byte	0x30
+ 1135 007a 9F       		.byte	0x9f
+ 1136 007b 00000000 		.4byte	0
+ 1137 007f 00000000 		.4byte	0
+ 1138              	.LLST2:
+ 1139 0083 0C000000 		.4byte	.LVL1
+ 1140 0087 3C000000 		.4byte	.LVL5
+ 1141 008b 0200     		.2byte	0x2
+ 1142 008d 30       		.byte	0x30
+ 1143 008e 9F       		.byte	0x9f
+ 1144 008f 3C000000 		.4byte	.LVL5
+ 1145 0093 76000000 		.4byte	.LVL12
+ 1146 0097 0100     		.2byte	0x1
+ 1147 0099 55       		.byte	0x55
+ 1148 009a 82000000 		.4byte	.LVL14
+ 1149 009e BC000000 		.4byte	.LVL23
+ 1150 00a2 0100     		.2byte	0x1
+ 1151 00a4 54       		.byte	0x54
+ 1152 00a5 E4000000 		.4byte	.LVL26
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 23
+
+
+ 1153 00a9 F6000000 		.4byte	.LVL28
+ 1154 00ad 0100     		.2byte	0x1
+ 1155 00af 55       		.byte	0x55
+ 1156 00b0 00000000 		.4byte	0
+ 1157 00b4 00000000 		.4byte	0
+ 1158              		.section	.debug_aranges,"",%progbits
+ 1159 0000 24000000 		.4byte	0x24
+ 1160 0004 0200     		.2byte	0x2
+ 1161 0006 00000000 		.4byte	.Ldebug_info0
+ 1162 000a 04       		.byte	0x4
+ 1163 000b 00       		.byte	0
+ 1164 000c 0000     		.2byte	0
+ 1165 000e 0000     		.2byte	0
+ 1166 0010 00000000 		.4byte	.LFB34
+ 1167 0014 04010000 		.4byte	.LFE34-.LFB34
+ 1168 0018 00000000 		.4byte	.LFB35
+ 1169 001c 38000000 		.4byte	.LFE35-.LFB35
+ 1170 0020 00000000 		.4byte	0
+ 1171 0024 00000000 		.4byte	0
+ 1172              		.section	.debug_ranges,"",%progbits
+ 1173              	.Ldebug_ranges0:
+ 1174 0000 00000000 		.4byte	.LFB34
+ 1175 0004 04010000 		.4byte	.LFE34
+ 1176 0008 00000000 		.4byte	.LFB35
+ 1177 000c 38000000 		.4byte	.LFE35
+ 1178 0010 00000000 		.4byte	0
+ 1179 0014 00000000 		.4byte	0
+ 1180              		.section	.debug_line,"",%progbits
+ 1181              	.Ldebug_line0:
+ 1182 0000 77010000 		.section	.debug_str,"MS",%progbits,1
+ 1182      0200E500 
+ 1182      00000201 
+ 1182      FB0E0D00 
+ 1182      01010101 
+ 1183              	.LASF6:
+ 1184 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1184      206C6F6E 
+ 1184      6720696E 
+ 1184      7400
+ 1185              	.LASF21:
+ 1186 000e 68756D69 		.ascii	"humidity\000"
+ 1186      64697479 
+ 1186      00
+ 1187              	.LASF11:
+ 1188 0017 666C6F61 		.ascii	"float\000"
+ 1188      7400
+ 1189              	.LASF18:
+ 1190 001d 74696D65 		.ascii	"timeout\000"
+ 1190      6F757400 
+ 1191              	.LASF26:
+ 1192 0025 4448545F 		.ascii	"DHT_Read\000"
+ 1192      52656164 
+ 1192      00
+ 1193              	.LASF28:
+ 1194 002e 55415254 		.ascii	"UART_UartPutString\000"
+ 1194      5F556172 
+ 1194      74507574 
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 24
+
+
+ 1194      53747269 
+ 1194      6E6700
+ 1195              	.LASF20:
+ 1196 0041 74656D70 		.ascii	"temperature\000"
+ 1196      65726174 
+ 1196      75726500 
+ 1197              	.LASF1:
+ 1198 004d 756E7369 		.ascii	"unsigned char\000"
+ 1198      676E6564 
+ 1198      20636861 
+ 1198      7200
+ 1199              	.LASF13:
+ 1200 005b 63686172 		.ascii	"char8\000"
+ 1200      3800
+ 1201              	.LASF5:
+ 1202 0061 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1202      20756E73 
+ 1202      69676E65 
+ 1202      6420696E 
+ 1202      7400
+ 1203              	.LASF3:
+ 1204 0073 73686F72 		.ascii	"short unsigned int\000"
+ 1204      7420756E 
+ 1204      7369676E 
+ 1204      65642069 
+ 1204      6E7400
+ 1205              	.LASF34:
+ 1206 0086 55415254 		.ascii	"UART_Start\000"
+ 1206      5F537461 
+ 1206      727400
+ 1207              	.LASF12:
+ 1208 0091 646F7562 		.ascii	"double\000"
+ 1208      6C6500
+ 1209              	.LASF33:
+ 1210 0098 6D61696E 		.ascii	"main\000"
+ 1210      00
+ 1211              	.LASF10:
+ 1212 009d 75696E74 		.ascii	"uint32\000"
+ 1212      333200
+ 1213              	.LASF8:
+ 1214 00a4 756E7369 		.ascii	"unsigned int\000"
+ 1214      676E6564 
+ 1214      20696E74 
+ 1214      00
+ 1215              	.LASF31:
+ 1216 00b1 433A5C55 		.ascii	"C:\\Users\\Narashiman\\Documents\\PSoC Creator\\1-w"
+ 1216      73657273 
+ 1216      5C4E6172 
+ 1216      61736869 
+ 1216      6D616E5C 
+ 1217 00df 69726520 		.ascii	"ire Protocol\\DHT11 POC.cydsn\000"
+ 1217      50726F74 
+ 1217      6F636F6C 
+ 1217      5C444854 
+ 1217      31312050 
+ 1218              	.LASF7:
+ 1219 00fc 6C6F6E67 		.ascii	"long long unsigned int\000"
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 25
+
+
+ 1219      206C6F6E 
+ 1219      6720756E 
+ 1219      7369676E 
+ 1219      65642069 
+ 1220              	.LASF25:
+ 1221 0113 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 1221      74657243 
+ 1221      72697469 
+ 1221      63616C53 
+ 1221      65637469 
+ 1222              	.LASF32:
+ 1223 012a 44485472 		.ascii	"DHTread\000"
+ 1223      65616400 
+ 1224              	.LASF15:
+ 1225 0132 73697A65 		.ascii	"sizetype\000"
+ 1225      74797065 
+ 1225      00
+ 1226              	.LASF22:
+ 1227 013b 49537461 		.ascii	"IState\000"
+ 1227      746500
+ 1228              	.LASF30:
+ 1229 0142 6D61696E 		.ascii	"main.c\000"
+ 1229      2E6300
+ 1230              	.LASF14:
+ 1231 0149 63686172 		.ascii	"char\000"
+ 1231      00
+ 1232              	.LASF16:
+ 1233 014e 62697473 		.ascii	"bits\000"
+ 1233      00
+ 1234              	.LASF29:
+ 1235 0153 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1235      4320342E 
+ 1235      392E3320 
+ 1235      32303135 
+ 1235      30333033 
+ 1236 0186 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 1236      20726576 
+ 1236      6973696F 
+ 1236      6E203232 
+ 1236      31323230 
+ 1237 01b9 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1237      66756E63 
+ 1237      74696F6E 
+ 1237      2D736563 
+ 1237      74696F6E 
+ 1238              	.LASF2:
+ 1239 01e1 73686F72 		.ascii	"short int\000"
+ 1239      7420696E 
+ 1239      7400
+ 1240              	.LASF19:
+ 1241 01eb 6F757470 		.ascii	"outputstring\000"
+ 1241      75747374 
+ 1241      72696E67 
+ 1241      00
+ 1242              	.LASF9:
+ 1243 01f8 75696E74 		.ascii	"uint8\000"
+ 1243      3800
+ARM GAS  C:\Users\NARASH~1\AppData\Local\Temp\ccEVLZXH.s 			page 26
+
+
+ 1244              	.LASF27:
+ 1245 01fe 43794578 		.ascii	"CyExitCriticalSection\000"
+ 1245      69744372 
+ 1245      69746963 
+ 1245      616C5365 
+ 1245      6374696F 
+ 1246              	.LASF17:
+ 1247 0214 63616C63 		.ascii	"calc\000"
+ 1247      00
+ 1248              	.LASF4:
+ 1249 0219 6C6F6E67 		.ascii	"long int\000"
+ 1249      20696E74 
+ 1249      00
+ 1250              	.LASF0:
+ 1251 0222 7369676E 		.ascii	"signed char\000"
+ 1251      65642063 
+ 1251      68617200 
+ 1252              	.LASF23:
+ 1253 022e 4448545F 		.ascii	"DHT_Write\000"
+ 1253      57726974 
+ 1253      6500
+ 1254              	.LASF35:
+ 1255 0238 73707269 		.ascii	"sprintf\000"
+ 1255      6E746600 
+ 1256              	.LASF24:
+ 1257 0240 43794465 		.ascii	"CyDelay\000"
+ 1257      6C617900 
+ 1258              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

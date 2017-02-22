@@ -1,0 +1,5 @@
+C:\Users\Narashiman\Documents\PSoC Creator\1-wire Protocol\DHT11 POC.cydsn\DHT11 POC.cyprj|cc661369-cb84-418e-b0d9-5d036e0604b5
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|49ef5a42-f05b-49e1-a567-573a9206e994
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|a58e6725-da00-4304-a46e-534676589ee8
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|5b476da7-c79a-433f-9b73-34fff584af23
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|63b4a711-104a-478f-8462-7aaa1f19d2d4
